@@ -43,9 +43,9 @@
             // 
             this.labelX1.BackgroundStyle.Class = "";
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(28, 58);
+            this.labelX1.Location = new System.Drawing.Point(12, 12);
             this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(160, 23);
+            this.labelX1.Size = new System.Drawing.Size(129, 23);
             this.labelX1.TabIndex = 0;
             this.labelX1.Text = "請選擇您需要的列數";
             // 
@@ -54,7 +54,7 @@
             this.btn_Yes.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btn_Yes.BackColor = System.Drawing.Color.Transparent;
             this.btn_Yes.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btn_Yes.Location = new System.Drawing.Point(212, 102);
+            this.btn_Yes.Location = new System.Drawing.Point(147, 41);
             this.btn_Yes.Name = "btn_Yes";
             this.btn_Yes.Size = new System.Drawing.Size(75, 23);
             this.btn_Yes.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -67,7 +67,7 @@
             this.btn_No.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btn_No.BackColor = System.Drawing.Color.Transparent;
             this.btn_No.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btn_No.Location = new System.Drawing.Point(293, 102);
+            this.btn_No.Location = new System.Drawing.Point(228, 41);
             this.btn_No.Name = "btn_No";
             this.btn_No.Size = new System.Drawing.Size(75, 23);
             this.btn_No.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -84,7 +84,7 @@
             this.checkBoxOne.BackgroundStyle.Class = "";
             this.checkBoxOne.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.checkBoxOne.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxOne.Location = new System.Drawing.Point(212, 58);
+            this.checkBoxOne.Location = new System.Drawing.Point(149, 12);
             this.checkBoxOne.Name = "checkBoxOne";
             this.checkBoxOne.Size = new System.Drawing.Size(75, 23);
             this.checkBoxOne.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -100,18 +100,18 @@
             this.checkBoxTwelve.BackgroundStyle.Class = "";
             this.checkBoxTwelve.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.checkBoxTwelve.CheckBoxStyle = DevComponents.DotNetBar.eCheckBoxStyle.RadioButton;
-            this.checkBoxTwelve.Location = new System.Drawing.Point(293, 58);
+            this.checkBoxTwelve.Location = new System.Drawing.Point(228, 12);
             this.checkBoxTwelve.Name = "checkBoxTwelve";
-            this.checkBoxTwelve.Size = new System.Drawing.Size(75, 23);
+            this.checkBoxTwelve.Size = new System.Drawing.Size(73, 23);
             this.checkBoxTwelve.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.checkBoxTwelve.TabIndex = 3;
             this.checkBoxTwelve.Text = "12列";
             // 
             // frm_printsetup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 137);
+            this.ClientSize = new System.Drawing.Size(313, 71);
             this.Controls.Add(this.checkBoxTwelve);
             this.Controls.Add(this.checkBoxOne);
             this.Controls.Add(this.btn_No);

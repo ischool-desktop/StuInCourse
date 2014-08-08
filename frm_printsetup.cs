@@ -17,13 +17,13 @@ namespace StuInCourse
 {
     public partial class frm_printsetup : BaseForm
     {
-        private List<string> list;
+        private List<string> _list;
         private int ColumnNo = 0;
 
         public frm_printsetup(List<string> list)
         {
             InitializeComponent();
-            this.list = list;
+            this._list = list;
             checkBoxOne.Checked = true;
             checkBoxTwelve.Checked = false;
             checkBoxOne.CheckedChanged += checkBoxOne_CheckedChanged;
@@ -63,6 +63,21 @@ namespace StuInCourse
             {
                 ColumnNo = 12;
             }
+            /*
+            //GetData
+            List<SCAttendRecord> sc_attends = K12.Data.SCAttend.SelectByCourseIDs(_list);
+
+            Dictionary<string, List<string>> course_students = new Dictionary<string, List<string>>();
+            foreach(SCAttendRecord record in sc_attends)
+            {
+                if (!course_students.ContainsKey(record.ID))
+                {
+                    string ref_course = record.RefCourseID;
+                    string ref_student = record.RefStudentID;
+                }
+            }
+            // List<StudentRecord> students = K12.Data.Student.SelectByIDs();
+            */
             Workbook wb = new Workbook();
             wb.Open(new MemoryStream(Properties.Resources.Template));
             Worksheet template_sheet = wb.Worksheets["Template"];
@@ -106,9 +121,16 @@ namespace StuInCourse
             int top = 4;  //4
             foreach (CourseRecord cr in _CourseList)
             {
+
+                IEnumerable<SCAttendRecord> scr = SCAttend.SelectByCourseIDs(new string[] { cr.ID });
+                IEnumerable<string> studentids = from screc in scr select screc.RefStudentID;
+                // 取得一般生
+                List<StudentRecord> students = Student.SelectByIDs(studentids).Where(x => x.Status == StudentRecord.StudentStatus.一般).ToList();
+
+
                 row_number = 1;
                 sheet_index = wb.Worksheets.AddCopy("Template");
-                wb.Worksheets[sheet_index].Name = cr.Class.Name + "班";
+                wb.Worksheets[sheet_index].Name = cr.Name ;
                 wb.Worksheets[sheet_index].Cells[0, 0].PutValue("國立科學工業園區實驗高級中學雙語部");
                 wb.Worksheets[sheet_index].Cells[1, 0].PutValue(cr.Class.Name +"班  " + cr.SchoolYear + " 學年度第" + cr.Semester + "學期學生名單");
                 wb.Worksheets[sheet_index].Cells[2, 11].PutValue("Report Print：" + SelectTime());
@@ -120,7 +142,7 @@ namespace StuInCourse
                 wb.Worksheets[sheet_index].Cells[3, 1].PutValue("Name");
 
                 int indexSub = 0;
-                foreach (StudentRecord student in cr.Class.Students)
+                foreach (StudentRecord student in students)
                 {
                     wb.Worksheets[sheet_index].Cells[top + indexSub, 0].PutValue(row_number);
                     wb.Worksheets[sheet_index].Cells[top + indexSub, 1].PutValue(student.Name + " " + student.EnglishName);
@@ -130,14 +152,17 @@ namespace StuInCourse
                     for (column_number = 1; column_number <= ColumnNo; column_number++)
                     {
                         wb.Worksheets[sheet_index].Cells[3, column_number +left ].Style = s2;
-                        wb.Worksheets[sheet_index].Cells[3, column_number +left].PutValue(column_number);
-                        
+                        wb.Worksheets[sheet_index].Cells[3, column_number +left].PutValue(column_number); 
                     }
                 wb.Worksheets[sheet_index].Cells.Merge(0, 0, 1, ColumnNo + 2); 
                 wb.Worksheets[sheet_index].Cells.Merge(1, 0, 1, ColumnNo + 2);
 
-                Range allstyle = wb.Worksheets[sheet_index].Cells.CreateRange(4, 0, row_number-1, column_number + left);
-                allstyle.Style = s;
+                if (row_number > 1)
+                {
+                 Range allstyle = wb.Worksheets[sheet_index].Cells.CreateRange(4, 0, row_number-1, column_number + left);
+                 allstyle.Style = s;
+                }
+               
                 /*StyleFlag sf = new StyleFlag();
                 sf.Borders = true;
                 allstyle.ApplyStyle(s, sf);*/
