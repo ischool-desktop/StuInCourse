@@ -9,3 +9,4 @@ D:\Github\Workspace\StuInCourse\bin\Debug\JHSchool.Data.xml
 D:\Github\Workspace\StuInCourse\obj\Debug\StuInCourse.Properties.Resources.resources
 D:\Github\Workspace\StuInCourse\obj\Debug\StuInCourse.dll
 D:\Github\Workspace\StuInCourse\obj\Debug\StuInCourse.pdb
+D:\Github\Workspace\StuInCourse\obj\Debug\StuInCourse.csprojResolveAssemblyReference.cache

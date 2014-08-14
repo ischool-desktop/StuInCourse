@@ -17,13 +17,13 @@ namespace StuInCourse
 {
     public partial class frm_printsetup : BaseForm
     {
-        private List<string> _list;
-        private int ColumnNo = 0;
+        private List<string> list;
+        private int columnNo = 0;
 
         public frm_printsetup(List<string> list)
         {
             InitializeComponent();
-            this._list = list;
+            this.list = list;
             checkBoxOne.Checked = true;
             checkBoxTwelve.Checked = false;
             checkBoxOne.CheckedChanged += checkBoxOne_CheckedChanged;
@@ -57,11 +57,11 @@ namespace StuInCourse
         {
             if (checkBoxOne.Checked == true)
             {
-                ColumnNo = 1;
+                columnNo = 1;
             }
             else if (checkBoxTwelve.Checked == true)
             {
-                ColumnNo = 12;
+                columnNo = 12;
             }
             /*
             //GetData
@@ -80,7 +80,7 @@ namespace StuInCourse
             */
             Workbook wb = new Workbook();
             wb.Open(new MemoryStream(Properties.Resources.Template));
-            Worksheet template_sheet = wb.Worksheets["Template"];
+            Worksheet templateSheet = wb.Worksheets["Template"];
             
 
             //設定Style樣板：四邊框線 水平字左 垂直字中 
@@ -111,61 +111,57 @@ namespace StuInCourse
             s3.VerticalAlignment = TextAlignmentType.Center;
 
 
-            List<CourseRecord> _CourseList = Course.SelectByIDs(K12.Presentation.NLDPanels.Course.SelectedSource);
-            _CourseList.Sort();
+            List<CourseRecord> courseList = Course.SelectByIDs(K12.Presentation.NLDPanels.Course.SelectedSource);
+            courseList.Sort();
 
-            int sheet_index = 1;
-            int row_number = 0; //列編號
-            int column_number; //行編號
+            int sheetIndex = 1;
+            int rowNumber = 0; //列編號
+            int columnNumber; //行編號
             int left = 1; //1
             int top = 4;  //4
-            foreach (CourseRecord cr in _CourseList)
+            foreach (CourseRecord cr in courseList)
             {
 
                 IEnumerable<SCAttendRecord> scr = SCAttend.SelectByCourseIDs(new string[] { cr.ID });
-                IEnumerable<string> studentids = from screc in scr select screc.RefStudentID;
+                IEnumerable<string> studentIds = from screc in scr select screc.RefStudentID;
                 // 取得一般生
-                List<StudentRecord> students = Student.SelectByIDs(studentids).Where(x => x.Status == StudentRecord.StudentStatus.一般).ToList();
+                List<StudentRecord> students = Student.SelectByIDs(studentIds).Where(x => x.Status == StudentRecord.StudentStatus.一般).ToList();
 
 
-                row_number = 1;
-                sheet_index = wb.Worksheets.AddCopy("Template");
-                wb.Worksheets[sheet_index].Name = cr.Name ;
-                wb.Worksheets[sheet_index].Cells[0, 0].PutValue("國立科學工業園區實驗高級中學雙語部");
-                wb.Worksheets[sheet_index].Cells[1, 0].PutValue(cr.Class.Name +"班  " + cr.SchoolYear + " 學年度第" + cr.Semester + "學期學生名單");
-                wb.Worksheets[sheet_index].Cells[2, 11].PutValue("Report Print：" + SelectTime());
+                rowNumber = 1;
+                sheetIndex = wb.Worksheets.AddCopy("Template");
+                wb.Worksheets[sheetIndex].Name = cr.Name ;
+                wb.Worksheets[sheetIndex].Cells[0, 0].PutValue("國立科學工業園區實驗高級中學雙語部");
+                wb.Worksheets[sheetIndex].Cells[1, 0].PutValue(cr.Class.Name +"班  " + cr.SchoolYear + " 學年度第" + cr.Semester + "學期學生名單");
+                wb.Worksheets[sheetIndex].Cells[2, 11].PutValue("Report Print：" + SelectTime());
 
-                wb.Worksheets[sheet_index].Cells[3, 0].Style = s3;
-                wb.Worksheets[sheet_index].Cells[3, 1].Style = s3;
+                wb.Worksheets[sheetIndex].Cells[3, 0].Style = s3;
+                wb.Worksheets[sheetIndex].Cells[3, 1].Style = s3;
 
-                wb.Worksheets[sheet_index].Cells[3, 0].PutValue("No");
-                wb.Worksheets[sheet_index].Cells[3, 1].PutValue("Name");
+                wb.Worksheets[sheetIndex].Cells[3, 0].PutValue("No");
+                wb.Worksheets[sheetIndex].Cells[3, 1].PutValue("Name");
 
                 int indexSub = 0;
                 foreach (StudentRecord student in students)
                 {
-                    wb.Worksheets[sheet_index].Cells[top + indexSub, 0].PutValue(row_number);
-                    wb.Worksheets[sheet_index].Cells[top + indexSub, 1].PutValue(student.Name + " " + student.EnglishName);
+                    wb.Worksheets[sheetIndex].Cells[top + indexSub, 0].PutValue(rowNumber);
+                    wb.Worksheets[sheetIndex].Cells[top + indexSub, 1].PutValue(student.Name + " " + student.EnglishName);
                     indexSub++;
-                    row_number++;
+                    rowNumber++;
                 }
-                    for (column_number = 1; column_number <= ColumnNo; column_number++)
+                    for (columnNumber = 1; columnNumber <= columnNo; columnNumber++)
                     {
-                        wb.Worksheets[sheet_index].Cells[3, column_number +left ].Style = s2;
-                        wb.Worksheets[sheet_index].Cells[3, column_number +left].PutValue(column_number); 
+                        wb.Worksheets[sheetIndex].Cells[3, columnNumber +left ].Style = s2;
+                        wb.Worksheets[sheetIndex].Cells[3, columnNumber +left].PutValue(columnNumber); 
                     }
-                wb.Worksheets[sheet_index].Cells.Merge(0, 0, 1, ColumnNo + 2); 
-                wb.Worksheets[sheet_index].Cells.Merge(1, 0, 1, ColumnNo + 2);
+                wb.Worksheets[sheetIndex].Cells.Merge(0, 0, 1, columnNo + 2); 
+                wb.Worksheets[sheetIndex].Cells.Merge(1, 0, 1, columnNo + 2);
 
-                if (row_number > 1)
+                if (rowNumber > 1)
                 {
-                 Range allstyle = wb.Worksheets[sheet_index].Cells.CreateRange(4, 0, row_number-1, column_number + left);
+                 Range allstyle = wb.Worksheets[sheetIndex].Cells.CreateRange(4, 0, rowNumber-1, columnNumber + left);
                  allstyle.Style = s;
                 }
-               
-                /*StyleFlag sf = new StyleFlag();
-                sf.Borders = true;
-                allstyle.ApplyStyle(s, sf);*/
             }
 
             wb.Worksheets.RemoveAt(0);
