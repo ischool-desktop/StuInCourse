@@ -63,21 +63,6 @@ namespace StuInCourse
             {
                 columnNo = 12;
             }
-            /*
-            //GetData
-            List<SCAttendRecord> sc_attends = K12.Data.SCAttend.SelectByCourseIDs(_list);
-
-            Dictionary<string, List<string>> course_students = new Dictionary<string, List<string>>();
-            foreach(SCAttendRecord record in sc_attends)
-            {
-                if (!course_students.ContainsKey(record.ID))
-                {
-                    string ref_course = record.RefCourseID;
-                    string ref_student = record.RefStudentID;
-                }
-            }
-            // List<StudentRecord> students = K12.Data.Student.SelectByIDs();
-            */
             Workbook wb = new Workbook();
             wb.Open(new MemoryStream(Properties.Resources.Template));
             Worksheet templateSheet = wb.Worksheets["Template"];
@@ -132,7 +117,7 @@ namespace StuInCourse
                 sheetIndex = wb.Worksheets.AddCopy("Template");
                 wb.Worksheets[sheetIndex].Name = cr.Name ;
                 wb.Worksheets[sheetIndex].Cells[0, 0].PutValue("國立科學工業園區實驗高級中學雙語部");
-                wb.Worksheets[sheetIndex].Cells[1, 0].PutValue(cr.Class.Name +"班  " + cr.SchoolYear + " 學年度第" + cr.Semester + "學期學生名單");
+				wb.Worksheets[sheetIndex].Cells[1, 0].PutValue(cr.Class.Name + "班  " + (cr.SchoolYear + 1911) + "~" + (cr.SchoolYear + 1912) + " 學年度第" + cr.Semester + "學期學生名單");
                 wb.Worksheets[sheetIndex].Cells[2, 11].PutValue("Report Print：" + SelectTime());
 
                 wb.Worksheets[sheetIndex].Cells[3, 0].Style = s3;
@@ -167,7 +152,7 @@ namespace StuInCourse
             wb.Worksheets.RemoveAt(0);
             SaveFileDialog save = new SaveFileDialog();
             save.Title = "另存新檔";
-            save.FileName = "StudentInCourse.xls";
+			save.FileName = "學生修課清單.xls";
             save.Filter = "Excel檔案 (*.xls)|*.xls|所有檔案 (*.*)|*.*";
             if (save.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
