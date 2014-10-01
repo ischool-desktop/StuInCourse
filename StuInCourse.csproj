@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="FISCA.Data">
       <HintPath>library\FISCA.Data.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FISCA.Permission">
       <HintPath>library\FISCA.Permission.dll</HintPath>
@@ -90,6 +91,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StuObj.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frm_printsetup.resx">

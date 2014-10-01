@@ -2,7 +2,6 @@ D:\Github\Workspace\StuInCourse\obj\Debug\StuInCourse.frm_printsetup.resources
 D:\Github\Workspace\StuInCourse\obj\Debug\StuInCourse.csproj.GenerateResource.Cache
 D:\Github\Workspace\StuInCourse\bin\Debug\StuInCourse.dll
 D:\Github\Workspace\StuInCourse\bin\Debug\StuInCourse.pdb
-D:\Github\Workspace\StuInCourse\bin\Debug\FISCA.Data.dll
 D:\Github\Workspace\StuInCourse\bin\Debug\JHSchool.Data.dll
 D:\Github\Workspace\StuInCourse\bin\Debug\JHSchool.Data.pdb
 D:\Github\Workspace\StuInCourse\bin\Debug\JHSchool.Data.xml
