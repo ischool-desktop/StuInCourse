@@ -140,12 +140,15 @@ namespace StuInCourse
 					xx += x.cr.Name.PadLeft(20, '0');
 					string seatNoX = x.sr.SeatNo + "";
 					xx += seatNoX.PadLeft(20, '0');
+					xx += x.sr.StudentNumber.PadLeft(20, '0');
+						
 
 					string yy = (y.cr.GradeYear + "").PadLeft(3, '0');
 					yy += y.cr.DisplayOrder.PadLeft(5, '0');
 					yy += y.cr.Name.PadLeft(20, '0');
 					string seatNoY = y.sr.SeatNo + "";
 					yy += seatNoY.PadLeft(20, '0');
+					yy += y.sr.StudentNumber.PadLeft(20, '0');
 
 					return xx.CompareTo(yy);
 				});
