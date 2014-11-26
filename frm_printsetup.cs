@@ -159,6 +159,7 @@ namespace StuInCourse
 				wb.Worksheets[sheetIndex].Cells[0, 0].PutValue(schoolName);
 				wb.Worksheets[sheetIndex].Cells[1, 0].PutValue((cr.SchoolYear + 1911) + "~" + (cr.SchoolYear + 1912) + " 學年度第" + cr.Semester + "學期學生名單");
                 wb.Worksheets[sheetIndex].Cells[2, 12].PutValue("Report Print：" + SelectTime());
+				wb.Worksheets[sheetIndex].Cells[2, 0].PutValue("Course Name："+cr.Name + "   Teacher Name：" + string.Join(",",cr.Teachers.Select(x => x.TeacherName)));
 
                 wb.Worksheets[sheetIndex].Cells[3, 0].Style = s3;
                 wb.Worksheets[sheetIndex].Cells[3, 1].Style = s3;
